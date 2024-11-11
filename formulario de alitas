@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedidos de Alitas</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
+            padding: 20px;
+        }
+        .form-container {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        h2 {
+            text-align: center;
+            color: #FF5722;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            color: #555;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+        select[multiple] {
+            height: auto;
+            padding: 8px;
+        }
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 5px;
+        }
+        .quantity-controls input {
+            text-align: center;
+            font-size: 1rem;
+            border: 1px solid #ddd;
+            width: 50px;
+        }
+        .quantity-controls button {
+            width: 32px;
+            height: 32px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+            background-color: #FF5722;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .quantity-controls button:hover {
+            background-color: #FF7043;
+        }
+        .submit-btn {
+            width: 100%;
+            background: #FF5722;
+            color: #fff;
+            padding: 10px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        .submit-btn:hover {
+            background: #FF7043;
+        }
+        .additional-section {
+            margin-top: 20px;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>PEDIDOS DE ALITAS</h2>
+        <form id="orderForm">
+            <label for="name">Nombre y Apellido:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="address">Dirección:</label>
+            <input type="text" id="address" name="address" required>
+
+            <label for="neighborhood">Barrio:</label>
+            <input type="text" id="neighborhood" name="neighborhood" required>
+
+            <label for="phone">Número de Teléfono:</label>
+            <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}">
+
+            <label>Escoge tu Combo:</label>
+            <select name="combo" id="combo" multiple>
+                <option value="Combo 1">Combo 1: 4 alitas + papas + gaseosa</option>
+                <option value="Combo 2">Combo 2: 6 alitas + papas + gaseosa</option>
+                <option value="Combo 3">Combo 3: 8 alitas + papas + gaseosa</option>
+                <option value="Combo 4">Combo 4: 11 alitas + papas</option>
+                <option value="Combo 5">Combo 5: 13 alitas + papas</option>
+                <option value="Combo 6">Combo 6: 18 alitas + papas</option>
+                <option value="Combo 7">Combo 7: 36 alitas + papas</option>
+                <option value="Combo Infantil">Combo Infantil: 3 alitas, papas, jugo, juguete</option>
+            </select>
+
+            <label>Escoge tus Salsas (puedes elegir hasta 3):</label>
+            <select name="salsas" id="salsas" multiple>
+                <option value="BBQ">BBQ</option>
+                <option value="Miel Mostaza">Miel Mostaza</option>
+                <option value="Picante">Picante</option>
+            </select>
+
+            <!-- Sección adicional para otros combos y salsas -->
+            <div class="additional-section">
+                <label>Otro Combo Adicional:</label>
+                <select name="additionalCombo" id="additionalCombo" multiple>
+                    <option value="Combo 1">Combo 1: 4 alitas + papas + gaseosa</option>
+                    <option value="Combo 2">Combo 2: 6 alitas + papas + gaseosa</option>
+                    <option value="Combo 3">Combo 3: 8 alitas + papas + gaseosa</option>
+                    <option value="Combo 4">Combo 4: 11 alitas + papas</option>
+                    <option value="Combo 5">Combo 5: 13 alitas + papas</option>
+                    <option value="Combo 6">Combo 6: 18 alitas + papas</option>
+                    <option value="Combo 7">Combo 7: 36 alitas + papas</option>
+                    <option value="Combo Infantil">Combo Infantil: 3 alitas, papas, jugo, juguete</option>
+                </select>
+
+                <label>Escoge Salsas para el Combo Adicional:</label>
+                <select name="additionalSalsas" id="additionalSalsas" multiple>
+                    <option value="BBQ">BBQ</option>
+                    <option value="Miel Mostaza">Miel Mostaza</option>
+                    <option value="Picante">Picante</option>
+                </select>
+            </div>
+
+            <label>Adicional de Alitas:</label>
+            <div class="quantity-controls">
+                <button type="button" onclick="decrement('extraAlitas')">-</button>
+                <input type="number" id="extraAlitas" name="extraAlitas" value="0" min="0" readonly>
+                <button type="button" onclick="increment('extraAlitas')">+</button>
+            </div>
+
+            <label>Adicional de Papas:</label>
+            <div class="quantity-controls">
+                <button type="button" onclick="decrement('extraPapas')">-</button>
+                <input type="number" id="extraPapas" name="extraPapas" value="0" min="0" readonly>
+                <button type="button" onclick="increment('extraPapas')">+</button>
+            </div>
+
+            <button type="button" class="submit-btn" onclick="sendToWhatsApp()">Enviar Pedido</button>
+        </form>
+    </div>
+
+    <script>
+        function increment(id) {
+            const input = document.getElementById(id);
+            input.value = parseInt(input.value) + 1;
+        }
+
+        function decrement(id) {
+            const input = document.getElementById(id);
+            if (parseInt(input.value) > 0) {
+                input.value = parseInt(input.value) - 1;
+            }
+        }
+
+        function sendToWhatsApp() {
+            const name = document.getElementById("name").value;
+            const address = document.getElementById("address").value;
+            const neighborhood = document.getElementById("neighborhood").value;
+            const phone = document.getElementById("phone").value;
+            const combo = Array.from(document.getElementById("combo").selectedOptions).map(opt => opt.value).join(", ");
+            const salsas = Array.from(document.getElementById("salsas").selectedOptions).map(opt => opt.value).join(", ");
+            const additionalCombo = Array.from(document.getElementById("additionalCombo").selectedOptions).map(opt => opt.value).join(", ");
+            const additionalSalsas = Array.from(document.getElementById("additionalSalsas").selectedOptions).map(opt => opt.value).join(", ");
+            const extraAlitas = document.getElementById("extraAlitas").value;
+            const extraPapas = document.getElementById("extraPapas").value;
+
+            const message = `Nombre: ${name}\nDirección: ${address}\nBarrio: ${neighborhood}\nTeléfono: ${phone}\nCombo: ${combo}\nSalsas: ${salsas}\nCombo Adicional: ${additionalCombo}\nSalsas Adicionales: ${additionalSalsas}\nAdicional de Alitas: ${extraAlitas}\nAdicional de Papas: ${extraPapas}`;
+            const url = `https://wa.me/573014502993?text=${encodeURIComponent(message)}`;
+
+            window.open(url, "_blank");
+        }
+    </script>
+</body>
+</html>
